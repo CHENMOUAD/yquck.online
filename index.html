@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>堀江貴文の投資コミュニティ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap');
+        
+        :root {
+            --primary-color: #FF4C4C;
+            --accent-color: #000080;
+            --dark-blue: #001F54;
+            --light-blue: #0A2472;
+            --light-red: #FF7676;
+            --bg-light: #F8F9FA;
+            --bg-dark: #0F172A;
+            --text-light: #FFFFFF;
+            --text-dark: #333333;
+            --text-gray: #666666;
+            --line-green: #06C755;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        
+        body {
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+        
+        .section {
+            padding: 4rem 0;
+            position: relative;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--dark-blue) 100%);
+            color: var(--text-light);
+            position: relative;
+            padding: 5rem 0;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+        
+        .flex {
+            display: flex;
+        }
+        
+        .flex-col {
+            flex-direction: column;
+        }
+        
+        .items-center {
+            align-items: center;
+        }
+        
+        .justify-between {
+            justify-content: space-between;
+        }
+        
+        .grid {
+            display: grid;
+            grid-gap: 2rem;
+        }
+        
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        h1, h2, h3, h4 {
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            font-weight: 900;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -0.75rem;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+        }
+        
+        .profile-img {
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.4rem 2rem;
+            font-weight: 700;
+            text-align: center;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--text-light);
+            box-shadow: 0 4px 15px rgba(255, 76, 76, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 76, 76, 0.5);
+        }
+        
+        .btn-line {
+            background: var(--line-green);
+            color: var(--text-light);
+            box-shadow: 0 4px 15px rgba(6, 199, 85, 0.4);
+        }
+        
+        .btn-line:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(6, 199, 85, 0.5);
+        }
+        
+        .btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        .btn:hover::after {
+            left: 100%;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .dark-section {
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--dark-blue) 100%);
+            color: var(--text-light);
+        }
+        
+        .light-section {
+            background-color: var(--bg-light);
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+        
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+        
+        .limited-badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--text-light);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            animation: pulse 2s infinite;
+            margin-left: 1rem;
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            width: 80%;
+            max-width: 360px;
+            margin: 0 auto;
+            z-index: 100;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 76, 76, 0.7);
+                transform: scale(1);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(255, 76, 76, 0);
+                transform: scale(1.05);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 76, 76, 0);
+                transform: scale(1);
+            }
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-4 {
+            margin-bottom: 2rem;
+        }
+        
+        .mt-4 {
+            margin-top: 2rem;
+        }
+        
+        .community-stat {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.1);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .community-stat i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-right: 1rem;
+        }
+        
+        .disclaimer {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+            color: rgb(242 1 1 / 80%);
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .section {
+                padding: 3rem 0;
+            }
+            
+            .floating-btn {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 第一屏: 首页/引言部分 -->
+    <section class="hero section">
+        <div class="container">
+            <div class="grid grid-2">
+                <div>
+                    <h1>投資経験を通じて得た<br>市場理解の本質</h1>
+                    <p>こんにちは、堀江貴文です。過去20年の投資経験を通して、私は常に市場分析とリスク管理に焦点を当ててきました。投資戦略を継続的に調整・最適化することで、2024年2月には前向きな成果を得ることができました。</p>
+                    <p>この経験から、投資理念を共有することの重要性を認識しました。私は自分の経験を通じて、より多くの人々が理性的な投資の意義と価値を理解できるよう手助けしたいと考えています。</p>
+                    
+                    <div class="flex mt-4">
+                        <button onclick="opensite()" class="btn btn-line">
+                            <i class="fab fa-line mr-2"></i>LINEコミュニティに参加する
+                        </button>
+                        <span class="limited-badge">
+                            <i class="fas fa-bolt mr-1"></i>残り40名限定
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <img src="img/r1.jpg" alt="堀江貴文" class="profile-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 第二屏: LINE社区的宗旨 -->
+    <section class="light-section section">
+        <div class="container">
+            <h2>より多くの投資家を支援するために</h2>
+            <p>今年、私は無料のLINEコミュニティを設立することを決めました。このコミュニティの主旨は以下の通りです：</p>
+            
+            <div class="grid grid-3 mb-4">
+                <div class="card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>知識共有</h3>
+                    <p>このプラットフォームを通じて、私は長年にわたる投資知識と経験を共有し、メンバーが基本的な投資原則と戦略を習得できるよう支援したいと考えています。</p>
+                </div>
+                
+                <div class="card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>交流とインタラクション</h3>
+                    <p>コミュニティでは、メンバーが自由に交流し、それぞれの投資の洞察や市場観察を共有することができます。このような交流は理解を深め、新しい投資のアイデアを生み出すのに役立ちます。</p>
+                </div>
+                
+                <div class="card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>リスク管理</h3>
+                    <p>成功した投資には、適切なリスク管理が不可欠だと私は常に考えています。コミュニティでは定期的に講座やディスカッションを開催し、メンバーが投資リスクを評価・管理する方法を学ぶお手伝いをします。</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-2">
+                <div>
+                    <div class="card">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>認知能力の向上</h3>
+                        <p>市場動向や経済情勢を分析するディスカッションを定期的に開催し、メンバーが市場背後のロジックをより深く理解できるよう支援します。この認知能力の向上は、より賢明な投資判断につながります。</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>データ分析</h3>
+                        <p>財務諸表や市場データを分析する方法を共有し、メンバーが株式の本質的な価値を評価する方法を理解できるようサポートします。これにより、投資判断の科学的根拠が強化されます。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <img src="img/2.jpg" alt="投資コミュニティ" class="profile-img" style="margin: 0 auto 2rem; ">
+                <button onclick="opensite()" class="btn btn-primary">
+                    <i class="fab fa-line mr-2"></i>無料コミュニティに今すぐ参加
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 第三屏: 社区价值 -->
+    <section class="dark-section section">
+        <div class="container">
+            <h2 style="color: white;">LINEコミュニティの価値</h2>
+            
+            <div class="grid grid-2 mb-4">
+                <div class="stat-card">
+                    <div class="stat-number">63,221</div>
+                    <h3>アクティブメンバー</h3>
+                    <p>初心者から経験豊富な投資家まで、さまざまなバックグラウンドを持つメンバーが集まり、知識と経験を共有しています。</p>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">423</div>
+                    <h3>ライブ配信実績</h3>
+                    <p>株式分析、市場トレンド分析、投資戦略など多岐にわたるテーマで、メンバーに実用的な知識と洞察を提供しています。</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-2">
+                <div class="card" style="background: rgba(255, 255, 255, 0.1);">
+                    <h3 style="color: white;">豊富な経験の蓄積</h3>
+                    <p>私たちのコミュニティは長年にわたり、投資家に専門的な交流プラットフォームを提供してきました。私たちは貴重な運営経験を蓄積し、投資家同士の交流と学習をサポートする安定した信頼できる環境を作り上げています。</p>
+                </div>
+                
+                <div class="card" style="background: rgba(255, 255, 255, 0.1);">
+                    <h3 style="color: white;">優質内容と活発な交流</h3>
+                    <p>コミュニティでは専門的な知識共有を提供し、頻繁なライブ配信と活発な議論を通じて、メンバーの疑問に効果的に回答しています。私たちは各メンバーにサポートと助けを提供し、共に成長することを目指しています。</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <button onclick="opensite()" class="btn btn-primary">
+                    <i class="fab fa-line mr-2"></i>コミュニティに参加する
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 第四屏: 社会证明和CTA -->
+    <section class="light-section section">
+        <div class="container">
+            <h2 class="text-center">コミュニティメンバーの声</h2>
+            
+            <div class="grid grid-3 mb-4">
+                <div class="testimonial">
+                    <div class="flex items-center mb-4">
+                        <img src="https://i.pravatar.cc/100?img=11" alt="鈴木健太" class="testimonial-avatar">
+                        <div>
+                            <h3 style="margin-bottom: 0;">鈴木健太</h3>
+                            <p style="margin-bottom: 0; font-size: 0.8rem; color: #666;">会社員 | 6ヶ月</p>
+                        </div>
+                    </div>
+                    <p>「堀江さんのコミュニティに参加して、投資に対する考え方が大きく変わりました。特にリスク管理の重要性を学び、より安定した投資判断ができるようになりました。」</p>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="flex items-center mb-4">
+                        <img src="https://i.pravatar.cc/100?img=32" alt="田中美咲" class="testimonial-avatar">
+                        <div>
+                            <h3 style="margin-bottom: 0;">田中美咲</h3>
+                            <p style="margin-bottom: 0; font-size: 0.8rem; color: #666;">自営業 | 4ヶ月</p>
+                        </div>
+                    </div>
+                    <p>「投資初心者でしたが、このコミュニティのおかげで基礎から体系的に学ぶことができました。定期的な市場分析も非常に参考になります。」</p>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="flex items-center mb-4">
+                        <img src="https://i.pravatar.cc/100?img=60" alt="佐藤拓也" class="testimonial-avatar">
+                        <div>
+                            <h3 style="margin-bottom: 0;">佐藤拓也</h3>
+                            <p style="margin-bottom: 0; font-size: 0.8rem; color: #666;">エンジニア | 8ヶ月</p>
+                        </div>
+                    </div>
+                    <p>「堀江さんのリスク管理アプローチは非常に実践的で、市場の変動に動じない投資マインドセットを養うことができました。」</p>
+                </div>
+            </div>
+            
+            <div class="card mb-4" style="background: #f9f9f9;">
+                <h3 class="text-center">コミュニティの現状</h3>
+                <div class="grid grid-3">
+                    <div class="community-stat">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <div style="font-weight: bold;">活発なコミュニティ</div>
+                            <div style="font-size: 0.8rem;">日々の活発なディスカッション</div>
+                        </div>
+                    </div>
+                    
+                    <div class="community-stat">
+                        <i class="fas fa-comments"></i>
+                        <div>
+                            <div style="font-weight: bold;">質の高い交流</div>
+                            <div style="font-size: 0.8rem;">メンバー同士の活発な意見交換</div>
+                        </div>
+                    </div>
+                    
+                    <div class="community-stat">
+                        <i class="fas fa-chart-line"></i>
+                        <div>
+                            <div style="font-weight: bold;">投資知識の向上</div>
+                            <div style="font-size: 0.8rem;">体系的な学習環境</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4" style="font-size: 1.2rem; font-weight: bold;">
+                    今日すでに215人が参加 <span class="limited-badge">残り40名限定</span>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <button onclick="opensite()" class="btn btn-primary" style="padding: 1.2rem 3rem;">
+                    <i class="fab fa-line mr-2"></i>今すぐ無料で参加する
+                </button>
+            </div>
+            
+            <footer class="mt-4">
+                <div class="disclaimer">
+                    <h3 style="color: white; margin-bottom: 1rem;">免責事項</h3>
+                    <p style="margin-bottom: 0.5rem;">本サイトで提供される情報は、教育目的のみであり、投資アドバイスや特定の投資結果を保証するものではありません。投資家は自身の状況に応じて独自の判断を下す必要があります。</p>
+                    <p style="margin-bottom: 0.5rem;">金融商品取引法および関連法規に基づき、当サイトでは特定の証券や金融商品の購入・売却の推奨を行いません。提供される情報は一般的な教育目的であり、市場理解と分析能力向上を目的としています。</p>
+                    <p>投資には元本割れのリスクがあります。投資を行う前に、必ず専門家のアドバイスを求めることをお勧めします。当サイトは、日本の金融規制および広告に関するガイドラインに準拠しています。</p>
+              <p style="margin-bottom: 0.5rem;"> 投資には資本の喪失リスクがあります。過去のパフォーマンスは将来の結果を保証するものではなく</p>
+                   <p style="margin-bottom: 0.5rem;"> 联系我们：dakndan@gmail.com</p>
+
+<p style="margin-bottom: 0.5rem;">联系方式：+8569-7012-226</p>
+
+<p style="margin-bottom: 0.5rem;">地址： 东京都立川市 Ikanishisaiganaibaai 248-1123</p>
+                </div>
+                <div class="text-center" style="margin-top: 1rem; color: #666; font-size: 0.8rem;">
+                    © 2024 堀江貴文の投資コミュニティ. All Rights Reserved.
+                </div>
+            </footer>
+        </div>
+    </section>
+
+    <!-- 悬浮按钮 -->
+    <div class="floating-btn">
+        <button onclick="opensite()" class="btn btn-line" style="width: 100%;">
+            <i class="fab fa-line mr-2"></i>LINEで参加する
+        </button>
+    </div>
+
+    <script>
+        function opensite() {
+             window.location.href = "https://www.facebook.com";
+        }
+    </script>
+</body>
+</html>
